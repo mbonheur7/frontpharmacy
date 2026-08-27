@@ -1,0 +1,645 @@
+/* ---------- Dashboard ---------- */
+
+.dashboard-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+}
+
+.dashboard-page > *:not(.dashboard-watermark) {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-watermark {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  width: min(620px, 55vw);
+  height: auto;
+
+  opacity: 0.10;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 0;
+
+  object-fit: contain;
+}
+
+:root[data-theme="dark"] .dashboard-watermark {
+  opacity: 0.075;
+  filter: brightness(1.15) saturate(0.85);
+}
+/* ---------- Login ---------- */
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--blue-900) 0%, var(--blue-800) 45%, var(--blue-700) 100%);
+  padding: 24px;
+}
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--paper-alt);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 34px 30px 28px;
+}
+.login-logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+.login-logo {
+  width: 108px;
+  height: 108px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.login-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.login-heading {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.login-heading h1 {
+  font-size: 20px;
+  color: var(--ink);
+  margin-top: 10px;
+}
+.login-heading p {
+  font-size: 12.5px;
+  color: var(--ink-dim);
+  margin-top: 3px;
+}
+.password-field-wrap {
+  position: relative;
+}
+.password-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--ink-faint);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+}
+.password-toggle:hover {
+  color: var(--ink-dim);
+}
+.login-footnote {
+  margin-top: 18px;
+  font-size: 11px;
+  color: var(--ink-faint);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ---------- Receipt ---------- */
+.receipt-paper {
+  width: 320px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: var(--paper-alt);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 22px 20px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  box-shadow: var(--shadow-md);
+  background-image:
+    radial-gradient(circle at 0 0, transparent 6px, var(--paper) 6.5px),
+    radial-gradient(circle at 100% 0, transparent 6px, var(--paper) 6.5px);
+  background-size: 12px 12px;
+  background-position: top left, top right;
+  background-repeat: repeat-x;
+}
+.receipt-brand {
+  text-align: center;
+  margin-bottom: 4px;
+}
+.receipt-brand-name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+}
+.receipt-brand-sub {
+  font-size: 10.5px;
+  color: var(--ink-dim);
+}
+.receipt-divider {
+  border-top: 1px dashed var(--line-strong);
+  margin: 11px 0;
+  padding-top: 10px;
+}
+.receipt-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  gap: 10px;
+}
+.receipt-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 14px;
+}
+.receipt-thanks {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 11px;
+  color: var(--ink-dim);
+  font-family: var(--font-body);
+}
+
+/* ---------- Forbidden / not found ---------- */
+.center-page {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 40px 20px;
+}
+/* ============================================================
+   DASHBOARD — PROFESSIONAL VISUAL LAYER
+   ============================================================ */
+
+/* ---------- Dashboard heading ---------- */
+
+.dashboard-heading {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.dashboard-eyebrow {
+  margin-bottom: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  color: var(--blue-600);
+}
+
+.dashboard-heading h1 {
+  font-size: 25px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.dashboard-heading p {
+  margin-top: 5px;
+  color: var(--ink-dim);
+  font-size: 13px;
+}
+
+
+/* ---------- Dashboard statistic cards ---------- */
+
+.dashboard-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.dashboard-stat-card {
+  position: relative;
+  min-height: 126px;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper-alt);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.dashboard-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+}
+
+.dashboard-card-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.dashboard-card-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--blue-50);
+  color: var(--blue-700);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.dashboard-card-icon.success {
+  background: var(--green-50);
+  color: var(--green-700);
+}
+
+.dashboard-card-icon.warning {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+.dashboard-card-icon.critical {
+  background: var(--critical-bg);
+  color: var(--critical);
+}
+
+.dashboard-card-icon.danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.dashboard-card-icon.expiry {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+.dashboard-card-arrow {
+  position: absolute;
+  right: 15px;
+  bottom: 14px;
+  color: var(--ink-faint);
+  font-size: 16px;
+  transition: transform 0.15s ease;
+}
+
+.dashboard-stat-card:hover .dashboard-card-arrow {
+  transform: translateX(3px);
+}
+
+.dashboard-stat-card .stat-label {
+  margin-bottom: 5px;
+}
+
+.dashboard-stat-card .stat-value {
+  font-size: 25px;
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.dashboard-stat-card .stat-sub {
+  margin-top: 6px;
+  color: var(--ink-dim);
+  font-size: 11.5px;
+}
+
+
+/* ---------- Severity edge indicators ---------- */
+
+.dashboard-stat-card.tone-critical {
+  border-left: 3px solid var(--critical);
+}
+
+.dashboard-stat-card.tone-warning {
+  border-left: 3px solid var(--warning);
+}
+
+.dashboard-stat-card.tone-danger {
+  border-left: 3px solid var(--danger);
+}
+
+.dashboard-stat-card.tone-expiry {
+  border-left: 3px solid var(--warning);
+}
+
+.dashboard-stat-card.tone-success {
+  border-left: 3px solid var(--green-600);
+}
+
+.dashboard-stat-card.tone-info {
+  border-left: 3px solid var(--blue-600);
+}
+
+
+/* ---------- Attention banner ---------- */
+
+.dashboard-alert-banner {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 18px;
+  padding: 13px 15px;
+  border: 1px solid var(--critical);
+  border-radius: var(--radius-md);
+  background: var(--critical-bg);
+}
+
+.dashboard-alert-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--critical);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.dashboard-alert-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.dashboard-alert-content strong {
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.dashboard-alert-content span {
+  font-size: 12px;
+  color: var(--ink-dim);
+  line-height: 1.4;
+}
+
+.dashboard-alert-link {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--critical);
+}
+
+
+/* ---------- Charts ---------- */
+
+.dashboard-chart-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(300px, 1fr);
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.dashboard-chart-card {
+  min-width: 0;
+  padding: 20px;
+  min-height: 380px;
+}
+
+.dashboard-section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.dashboard-section-heading h3 {
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.dashboard-section-heading p {
+  margin-top: 4px;
+  color: var(--ink-dim);
+  font-size: 11.5px;
+}
+
+.dashboard-section-heading a {
+  flex-shrink: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.dashboard-chart {
+  width: 100%;
+  min-height: 280px;
+}
+
+.dashboard-chart .recharts-cartesian-axis-tick-value {
+  fill: var(--ink-dim);
+}
+
+.dashboard-chart .recharts-text {
+  fill: var(--ink-dim);
+}
+
+.dashboard-chart .recharts-cartesian-grid-horizontal line,
+.dashboard-chart .recharts-cartesian-grid-vertical line {
+  stroke: var(--line);
+}
+
+
+/* ---------- Stock health chart ---------- */
+
+.stock-health-chart {
+  position: relative;
+  min-height: 300px;
+}
+
+.stock-health-center {
+  position: absolute;
+  top: 82px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.stock-health-center strong {
+  display: block;
+  font-size: 25px;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.stock-health-center span {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  color: var(--ink-faint);
+}
+
+.stock-health-legend {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 18px;
+  margin: 0 auto;
+  max-width: 280px;
+}
+
+.stock-health-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  color: var(--ink-dim);
+}
+
+.stock-health-item strong {
+  margin-left: auto;
+  color: var(--ink);
+}
+
+.stock-health-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+
+/* ---------- Secondary dashboard cards ---------- */
+
+.dashboard-secondary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.dashboard-mini-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 92px;
+  padding: 16px 18px;
+}
+
+.dashboard-mini-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.dashboard-mini-icon.expiry {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+.dashboard-mini-icon.sales {
+  background: var(--green-50);
+  color: var(--green-700);
+}
+
+.dashboard-mini-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+}
+
+.dashboard-mini-value {
+  margin-top: 2px;
+  font-size: 21px;
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.dashboard-mini-sub {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--ink-dim);
+}
+
+.dashboard-mini-link {
+  margin-left: auto;
+  align-self: center;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+
+/* ---------- Recent sales ---------- */
+
+.dashboard-sales-card {
+  margin-bottom: 10px;
+}
+
+.dashboard-sales-card .dashboard-section-heading {
+  margin-bottom: 10px;
+}
+
+
+/* ============================================================
+   DASHBOARD RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1100px) {
+  .dashboard-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-secondary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-heading h1 {
+    font-size: 22px;
+  }
+
+  .dashboard-alert-banner {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .dashboard-alert-link {
+    margin-left: 45px;
+  }
+
+  .dashboard-chart-card {
+    padding: 15px;
+  }
+
+  .stock-health-legend {
+    max-width: 240px;
+  }
+}
