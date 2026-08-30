@@ -835,3 +835,297 @@
   }
 
 }
+/* =========================================================
+   SALES — RESPONSIVE LAYOUT
+   ========================================================= */
+
+.sales-page {
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   NEW SALE
+   ========================================================= */
+
+.new-sale-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(300px, 1fr);
+  gap: 18px;
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+}
+
+.new-sale-products {
+  min-width: 0;
+}
+
+.sale-search {
+  position: relative;
+}
+
+.sale-search-results {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.sale-search-result {
+  padding: 10px 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sale-search-result:last-child {
+  border-bottom: 0;
+}
+
+.sale-search-result:hover {
+  background: var(--blue-50);
+}
+
+
+/* =========================================================
+   CART
+   ========================================================= */
+
+.sale-cart {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sale-cart-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sale-cart-item:last-child {
+  border-bottom: 0;
+}
+
+.sale-cart-medicine {
+  flex: 1;
+  min-width: 0;
+}
+
+.sale-qty {
+  width: 60px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.sale-line-total {
+  width: 74px;
+  flex-shrink: 0;
+  text-align: right;
+  font-weight: 600;
+}
+
+.sale-remove {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   SALE SUMMARY
+   ========================================================= */
+
+.sale-summary {
+  min-width: 0;
+}
+
+.sale-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  margin-bottom: 8px;
+}
+
+.sale-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 700;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+}
+
+
+/* =========================================================
+   COMPLETED SALE
+   ========================================================= */
+
+.sale-completed {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.sale-completed-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   RECEIPT HISTORY
+   ========================================================= */
+
+.receipt-history-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  width: 100%;
+  min-width: 0;
+}
+
+.receipt-history-layout.has-receipt {
+  grid-template-columns: minmax(0, 1fr) 340px;
+}
+
+.receipt-history-list {
+  min-width: 0;
+}
+
+.receipt-table-card {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.receipt-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.receipt-table {
+  min-width: 760px;
+}
+
+.selected-receipt {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 880px) {
+
+  .new-sale-layout {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .sale-summary {
+    width: 100%;
+  }
+
+  .receipt-history-layout.has-receipt {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-receipt {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   PHONE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .new-sale-layout {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .sale-search-results {
+    left: 0;
+    right: 0;
+  }
+
+  .sale-cart-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 58px auto 34px;
+    gap: 7px;
+    padding: 11px 10px;
+  }
+
+  .sale-qty {
+    width: 58px;
+  }
+
+  .sale-line-total {
+    width: auto;
+    min-width: 65px;
+    font-size: 12px;
+  }
+
+  .sale-remove {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .sale-total {
+    font-size: 20px;
+  }
+
+  .sale-completed {
+    padding-top: 10px;
+  }
+
+  .sale-completed-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .sale-completed-actions .btn {
+    width: 100%;
+  }
+
+  .receipt-history-layout.has-receipt {
+    grid-template-columns: 1fr;
+  }
+
+  .receipt-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .receipt-table {
+    min-width: 760px;
+  }
+
+  .selected-receipt {
+    width: 100%;
+  }
+
+}
