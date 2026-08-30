@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { activityLogsApi } from "../api/activityLogs";
 import { useFetch } from "../hooks/useFetch";
-import { LoadingState, EmptyState, ErrorBanner } from "../components/StateViews";
+import {
+  LoadingState,
+  EmptyState,
+  ErrorBanner,
+} from "../components/StateViews";
 import { formatDateTime } from "../utils/formatters";
 
 export default function ActivityLog() {
@@ -10,61 +14,91 @@ export default function ActivityLog() {
   const [end, setEnd] = useState("");
 
   const { data, loading, error } = useFetch(
-    () => activityLogsApi.list({ action: action || undefined, start: start || undefined, end: end || undefined }),
+    () =>
+      activityLogsApi.list({
+        action: action || undefined,
+        start: start || undefined,
+        end: end || undefined,
+      }),
     [action, start, end]
   );
+
   const logs = data?.activity_logs || [];
 
   return (
     <div className="activity-log-page">
-      <div className="toolbar activity-log-filters">
 
-  <input
-    className="input"
-    style={{ maxWidth: 220 }}
-    placeholder="Filter by action (e.g. login)"
-    value={action}
-    onChange={(e) => setAction(e.target.value)}
-  />
+      {/* =====================================================
+          FILTERS
+          ===================================================== */}
 
-  <label className="date-filter">
-    <span>Start date</span>
-    <input
-      className="input"
-      type="date"
-      value={start}
-      onChange={(e) =>
-        setStart(e.target.value)
-      }
-      aria-label="Start date"
-    />
-  </label>
+      <div className="activity-log-filters">
 
-  <label className="date-filter">
-    <span>End date</span>
-    <input
-      className="input"
-      type="date"
-      value={end}
-      onChange={(e) =>
-        setEnd(e.target.value)
-      }
-      aria-label="End date"
-    />
-  </label>
+        {/* Action search */}
+        <div className="activity-log-action-filter">
+          <input
+            className="input"
+            placeholder="Filter by action (e.g. login)"
+            value={action}
+            onChange={(e) => setAction(e.target.value)}
+          />
+        </div>
 
-</div>
 
-      <div className="card">
+        {/* Start date */}
+        <label className="date-filter">
+          <span>Start date</span>
+
+          <input
+            className="input"
+            type="date"
+            value={start}
+            onChange={(e) => setStart(e.target.value)}
+            aria-label="Start date"
+          />
+        </label>
+
+
+        {/* End date */}
+        <label className="date-filter">
+          <span>End date</span>
+
+          <input
+            className="input"
+            type="date"
+            value={end}
+            onChange={(e) => setEnd(e.target.value)}
+            aria-label="End date"
+          />
+        </label>
+
+      </div>
+
+
+      {/* =====================================================
+          ACTIVITY TABLE
+          ===================================================== */}
+
+      <div className="card activity-log-card">
+
         {loading ? (
+
           <LoadingState label="Loading activity log…" />
+
         ) : error ? (
+
           <ErrorBanner error={error} />
+
         ) : logs.length === 0 ? (
+
           <EmptyState label="No matching activity found." />
+
         ) : (
-          <div className="table-wrap">
-            <table className="table">
+
+          <div className="table-wrap activity-log-table-wrap">
+
+            <table className="table activity-log-table">
+
               <thead>
                 <tr>
                   <th>Date/time</th>
@@ -73,22 +107,48 @@ export default function ActivityLog() {
                   <th>Details</th>
                 </tr>
               </thead>
+
               <tbody>
-                {logs.map((l) => (
-                  <tr key={l.id}>
-                    <td style={{ whiteSpace: "nowrap" }}>{formatDateTime(l.occurred_at)}</td>
-                    <td>{l.user_name || "-"}</td>
-                    <td>
-                      <span className="badge badge-neutral">{l.action}</span>
+
+                {logs.map((log) => (
+
+                  <tr key={log.id}>
+
+                    <td className="activity-log-date">
+                      {formatDateTime(log.occurred_at)}
                     </td>
-                    <td style={{ color: "var(--ink-dim)" }}>{l.details || "-"}</td>
+
+                    <td className="activity-log-user">
+                      {log.user_name || "-"}
+                    </td>
+
+                    <td className="activity-log-action">
+                      <span className="badge badge-neutral">
+                        {log.action}
+                      </span>
+                    </td>
+
+                    <td
+                      className="activity-log-details"
+                      style={{ color: "var(--ink-dim)" }}
+                    >
+                      {log.details || "-"}
+                    </td>
+
                   </tr>
+
                 ))}
+
               </tbody>
+
             </table>
+
           </div>
+
         )}
+
       </div>
+
     </div>
   );
 }
