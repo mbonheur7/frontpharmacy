@@ -1,6 +1,5 @@
 /* =========================================================
-   VI-PHARMACY — APPLICATION LAYOUT
-   Desktop + Tablet + Mobile Responsive Layout
+   APP SHELL
    ========================================================= */
 
 *,
@@ -9,15 +8,13 @@
   box-sizing: border-box;
 }
 
-
-/* =========================================================
-   APP SHELL
-   ========================================================= */
-
 .app-shell {
-  display: flex;
-  height: 100vh;
+  width: 100%;
   min-height: 100vh;
+  height: 100vh;
+
+  display: flex;
+
   overflow: hidden;
 }
 
@@ -29,7 +26,8 @@
 .sidebar {
   width: var(--sidebar-width);
   height: 100vh;
-  flex-shrink: 0;
+
+  flex: 0 0 var(--sidebar-width);
 
   background: var(--blue-900);
 
@@ -38,21 +36,9 @@
 
   padding: 18px 12px;
 
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
 
-  transition:
-    width 0.2s ease,
-    transform 0.22s ease;
-}
-
-
-/* =========================================================
-   DESKTOP COLLAPSED SIDEBAR
-   ========================================================= */
-
-.sidebar-collapsed .sidebar {
-  width: var(--sidebar-collapsed-width);
+  z-index: 60;
 }
 
 
@@ -72,9 +58,11 @@
 
   margin-bottom: 14px;
 
-  min-width: 208px;
-}
+  min-width: 0;
+  width: 100%;
 
+  flex-shrink: 0;
+}
 
 .sidebar-logo {
   width: 40px;
@@ -89,7 +77,6 @@
   flex-shrink: 0;
 }
 
-
 .sidebar-logo img {
   width: 100%;
   height: 100%;
@@ -97,7 +84,6 @@
   object-fit: cover;
   object-position: center;
 }
-
 
 .sidebar-brand-text {
   font-weight: 700;
@@ -109,7 +95,6 @@
 
   white-space: nowrap;
 }
-
 
 .sidebar-brand-tagline {
   font-size: 10px;
@@ -132,11 +117,29 @@
 
   gap: 2px;
 
-  flex: 1;
+  /*
+    IMPORTANT:
+    Navigation gets its own scrolling area.
+    The footer does NOT scroll with it.
+  */
+  flex: 1 1 auto;
+
+  min-height: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
 }
 
 
+/* =========================================================
+   SIDEBAR LINKS
+   ========================================================= */
+
 .sidebar-link {
+  width: 100%;
+
   display: flex;
   align-items: center;
 
@@ -159,22 +162,20 @@
 
   white-space: nowrap;
 
+  flex-shrink: 0;
+
   text-decoration: none;
 }
 
-
 .sidebar-link:hover {
   background: rgba(255, 255, 255, 0.07);
-
   color: #fff;
 
   text-decoration: none;
 }
 
-
 .sidebar-link.active {
   background: var(--blue-700);
-
   color: #fff;
 }
 
@@ -193,12 +194,10 @@
     transform 0.12s ease;
 }
 
-
 .sidebar-link:hover .sidebar-icon,
 .sidebar-link.active .sidebar-icon {
   opacity: 1;
 }
-
 
 .sidebar-link:hover .sidebar-icon {
   transform: translateX(1px);
@@ -206,7 +205,7 @@
 
 
 /* =========================================================
-   SIDEBAR SECTION LABEL
+   ADMINISTRATION LABEL
    ========================================================= */
 
 .sidebar-section-label {
@@ -223,6 +222,32 @@
   padding: 14px 12px 6px;
 
   white-space: nowrap;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   SIDEBAR FOOTER
+   ========================================================= */
+
+.sidebar-footer {
+  /*
+    This is the important part.
+
+    Footer is a fixed flex child at the bottom of the
+    sidebar instead of being part of the scrolling content.
+  */
+
+  flex: 0 0 auto;
+
+  margin-top: auto;
+
+  padding-top: 12px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  background: var(--blue-900);
 }
 
 
@@ -245,7 +270,6 @@
   white-space: nowrap;
 }
 
-
 .sidebar-user-icon {
   width: 32px;
   height: 32px;
@@ -263,28 +287,25 @@
   color: rgba(255, 255, 255, 0.72);
 }
 
-
 .sidebar-user-details {
   min-width: 0;
 }
 
-
 .sidebar-user-details strong {
   display: block;
-
-  color: #fff;
-
-  font-size: 13px;
-
-  font-weight: 600;
 
   overflow: hidden;
 
   text-overflow: ellipsis;
 
   white-space: nowrap;
-}
 
+  color: #fff;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
 
 .sidebar-user-details span {
   display: block;
@@ -294,19 +315,6 @@
   font-size: 11px;
 
   color: rgba(255, 255, 255, 0.5);
-}
-
-
-/* =========================================================
-   SIDEBAR FOOTER
-   ========================================================= */
-
-.sidebar-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-  padding-top: 12px;
-
-  margin-top: 8px;
 }
 
 
@@ -347,7 +355,6 @@
     color 0.12s ease;
 }
 
-
 .sidebar-logout:hover {
   background: rgba(255, 255, 255, 0.07);
 
@@ -356,57 +363,40 @@
 
 
 /* =========================================================
-   COLLAPSED DESKTOP SIDEBAR
+   MAIN APPLICATION
    ========================================================= */
 
-@media (min-width: 881px) {
+.app-main {
+  flex: 1;
 
-  .sidebar-collapsed .sidebar-brand {
-    min-width: 48px;
+  min-width: 0;
 
-    justify-content: center;
+  height: 100vh;
 
-    padding-left: 0;
-    padding-right: 0;
-  }
+  display: flex;
 
+  flex-direction: column;
 
-  .sidebar-collapsed .sidebar-brand-text,
-  .sidebar-collapsed .sidebar-brand-tagline,
-  .sidebar-collapsed .sidebar-section-label,
-  .sidebar-collapsed .sidebar-user {
-    display: none;
-  }
-
-
-  .sidebar-collapsed .sidebar-brand {
-    border-bottom-color: transparent;
-  }
-
-
-  .sidebar-collapsed .sidebar-link {
-    justify-content: center;
-
-    padding-left: 8px;
-    padding-right: 8px;
-
-    font-size: 0;
-  }
-
-
-  .sidebar-collapsed .sidebar-footer {
-    border-top-color: transparent;
-  }
-
+  overflow: hidden;
 }
 
 
 /* =========================================================
-   SIDEBAR SCRIM
+   CONTENT
    ========================================================= */
 
-.sidebar-scrim {
-  display: none;
+.app-content {
+  flex: 1;
+
+  min-height: 0;
+
+  min-width: 0;
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
+  padding: 22px 26px 48px;
 }
 
 
@@ -416,6 +406,8 @@
 
 .topbar {
   height: var(--topbar-height);
+
+  min-height: var(--topbar-height);
 
   display: flex;
   align-items: center;
@@ -431,31 +423,32 @@
   flex-shrink: 0;
 }
 
-
 .topbar-title {
   font-size: 16px;
 
   font-weight: 700;
-}
 
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
 
 .topbar-spacer {
   flex: 1;
 }
 
-
 .topbar-menu-btn {
   display: inline-flex;
 
   align-items: center;
+
   justify-content: center;
-}
 
-
-.menu-icon {
-  font-size: 18px;
-
-  line-height: 1;
+  flex-shrink: 0;
 }
 
 
@@ -487,8 +480,9 @@
   transition:
     background 0.15s ease,
     border-color 0.15s ease;
-}
 
+  flex-shrink: 0;
+}
 
 .theme-toggle:hover {
   background: var(--blue-50);
@@ -496,180 +490,217 @@
   border-color: var(--line-strong);
 }
 
-
 .theme-toggle > span:first-child {
   font-size: 15px;
 }
 
 
 /* =========================================================
-   MAIN APPLICATION AREA
+   DESKTOP COLLAPSED SIDEBAR
    ========================================================= */
 
-.app-main {
-  flex: 1;
+@media (min-width: 881px) {
 
-  min-width: 0;
+  .sidebar-collapsed .sidebar {
+    width: var(--sidebar-collapsed-width);
 
-  height: 100vh;
+    flex-basis: var(--sidebar-collapsed-width);
+  }
 
-  display: flex;
-  flex-direction: column;
+  .sidebar-collapsed .sidebar-brand {
+    min-width: 0;
 
-  overflow: hidden;
+    justify-content: center;
+
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .sidebar-collapsed .sidebar-brand-text,
+  .sidebar-collapsed .sidebar-brand-tagline,
+  .sidebar-collapsed .sidebar-section-label,
+  .sidebar-collapsed .sidebar-user {
+    display: none;
+  }
+
+  .sidebar-collapsed .sidebar-brand {
+    border-bottom-color: transparent;
+  }
+
+  .sidebar-collapsed .sidebar-link {
+    justify-content: center;
+
+    padding-left: 8px;
+    padding-right: 8px;
+
+    font-size: 0;
+  }
+
+  .sidebar-collapsed .sidebar-footer {
+    border-top-color: transparent;
+  }
+
+  .sidebar-collapsed .sidebar-logout {
+    justify-content: center;
+
+    padding-left: 8px;
+    padding-right: 8px;
+
+    font-size: 0;
+  }
 }
 
 
 /* =========================================================
-   PAGE CONTENT
-   ========================================================= */
-
-.app-content {
-  flex: 1;
-
-  min-height: 0;
-
-  overflow-y: auto;
-
-  overflow-x: hidden;
-
-  padding: 22px 26px 48px;
-}
-
-
-/* =========================================================
-   TABLE SAFETY
-   ========================================================= */
-
-/*
-   Wide tables should be allowed to scroll horizontally
-   instead of breaking the entire page.
-
-   This works together with table containers/components.
-*/
-
-.table-wrapper,
-.table-scroll,
-.data-table-wrapper {
-  width: 100%;
-
-  max-width: 100%;
-
-  overflow-x: auto;
-
-  overflow-y: hidden;
-
-  -webkit-overflow-scrolling: touch;
-}
-
-
-/* =========================================================
-   RESPONSIVE — TABLET / MOBILE
-   ========================================================= */
-
-/* =========================================================
-   RESPONSIVE — TABLET / MOBILE
+   MOBILE
    ========================================================= */
 
 @media (max-width: 880px) {
 
-  /* -------------------------------------------------------
-     Mobile sidebar
-     ------------------------------------------------------- */
+  /*
+    MOBILE SIDEBAR
+
+    Deliberately smaller than before.
+    Do NOT use var(--sidebar-width) here.
+  */
 
   .sidebar {
     position: fixed;
 
     top: 0;
-    bottom: 0;
     left: 0;
+    bottom: 0;
 
-    /*
-      IMPORTANT:
-      border-box makes the width include padding.
-      This prevents the sidebar becoming wider than expected.
-    */
-    box-sizing: border-box;
+    width: 220px !important;
 
-    width: 245px;
-    max-width: 82vw;
+    max-width: 78vw;
 
     height: 100dvh;
 
-    z-index: 60;
+    /*
+      The width includes the padding.
+    */
+    box-sizing: border-box;
+
+    padding: 16px 8px;
+
+    flex: none;
 
     transform: translateX(-100%);
 
     transition: transform 0.22s ease;
 
-    box-shadow: var(--shadow-lg);
+    overflow: hidden;
 
-    padding: 18px 10px;
-
-    overflow-y: auto;
-    overflow-x: hidden;
+    z-index: 60;
   }
 
 
-  /* Sidebar visible */
+  /*
+    When opened, it must be exactly at the left edge.
+  */
+
   .sidebar.open {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
+  }
+
+
+  /*
+    Prevent any child from pushing the sidebar sideways.
+  */
+
+  .sidebar-brand,
+  .sidebar-nav,
+  .sidebar-footer {
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
   }
 
 
   /* -------------------------------------------------------
-     Keep sidebar content inside the mobile sidebar
+     Brand
      ------------------------------------------------------- */
 
   .sidebar-brand {
-    min-width: 0;
+    padding: 4px 6px 16px;
 
-    width: 100%;
+    margin-bottom: 10px;
 
-    box-sizing: border-box;
-
-    padding-left: 6px;
-    padding-right: 6px;
+    gap: 8px;
   }
 
-
-  .sidebar-link {
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding-left: 10px;
-    padding-right: 10px;
+  .sidebar-logo {
+    width: 36px;
+    height: 36px;
   }
 
-
-  .sidebar-section-label {
-    padding-left: 10px;
-    padding-right: 10px;
+  .sidebar-brand-text {
+    font-size: 14px;
   }
 
-
-  .sidebar-user {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-
-  .sidebar-logout {
-    box-sizing: border-box;
-
-    padding-left: 10px;
-    padding-right: 10px;
+  .sidebar-brand-tagline {
+    font-size: 9px;
   }
 
 
   /* -------------------------------------------------------
-     Mobile sidebar overlay
+     Navigation
+     ------------------------------------------------------- */
+
+  .sidebar-nav {
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+  }
+
+  .sidebar-link {
+    padding: 10px 8px;
+
+    gap: 9px;
+
+    font-size: 13.5px;
+  }
+
+  .sidebar-section-label {
+    padding: 12px 8px 5px;
+
+    font-size: 10px;
+  }
+
+
+  /* -------------------------------------------------------
+     Footer stays at bottom
+     ------------------------------------------------------- */
+
+  .sidebar-footer {
+    flex: 0 0 auto;
+
+    margin-top: auto;
+
+    padding-top: 10px;
+  }
+
+  .sidebar-user {
+    padding: 4px 8px 8px;
+  }
+
+  .sidebar-logout {
+    padding: 9px 8px;
+  }
+
+
+  /* -------------------------------------------------------
+     Overlay
      ------------------------------------------------------- */
 
   .sidebar-scrim {
-    display: block;
-
     position: fixed;
 
     inset: 0;
@@ -677,33 +708,29 @@
     background: rgba(10, 20, 35, 0.48);
 
     z-index: 50;
-
-    animation: sidebar-scrim-in 0.18s ease;
   }
 
 
   /* -------------------------------------------------------
-     Main application
+     Main content
      ------------------------------------------------------- */
 
   .app-main {
     width: 100%;
+
     min-width: 0;
   }
-
-
-  /* -------------------------------------------------------
-     Page content
-     ------------------------------------------------------- */
 
   .app-content {
     width: 100%;
 
-    box-sizing: border-box;
+    min-width: 0;
 
-    padding: 16px 14px 40px;
+    padding: 14px 12px 32px;
 
     overflow-x: hidden;
+
+    overflow-y: auto;
   }
 
 
@@ -712,36 +739,30 @@
      ------------------------------------------------------- */
 
   .topbar {
-    height: 58px;
+    height: 56px;
 
-    min-height: 58px;
+    min-height: 56px;
 
-    padding: 0 14px;
+    padding: 0 12px;
 
-    gap: 10px;
+    gap: 9px;
   }
-
 
   .topbar-title {
     font-size: 15px;
-
-    min-width: 0;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
   }
 
-
   .topbar-menu-btn {
-    display: inline-flex;
+    width: 36px;
+    height: 36px;
+  }
 
-    width: 38px;
-    height: 38px;
+  .theme-toggle {
+    padding: 6px 9px;
+  }
 
-    flex-shrink: 0;
+  .theme-toggle-text {
+    display: none;
   }
 
 
@@ -755,29 +776,8 @@
 
 
   /* -------------------------------------------------------
-     Theme button
-     ------------------------------------------------------- */
-
-  .theme-toggle-text {
-    display: none;
-  }
-
-
-  .theme-toggle {
-    padding: 7px 9px;
-
-    flex-shrink: 0;
-  }
-
-
-  /* -------------------------------------------------------
      Tables
      ------------------------------------------------------- */
-
-  table {
-    min-width: max-content;
-  }
-
 
   .table-wrapper,
   .table-scroll,
@@ -792,78 +792,32 @@
 
     -webkit-overflow-scrolling: touch;
   }
+
+  table {
+    min-width: max-content;
+  }
 }
 
 
 /* =========================================================
-   RESPONSIVE — SMALL PHONES
+   VERY SMALL PHONES
    ========================================================= */
 
-@media (max-width: 480px) {
+@media (max-width: 380px) {
 
   .sidebar {
-    width: 235px;
+    width: 210px !important;
 
-    max-width: 82vw;
+    max-width: 78vw;
   }
-
 
   .app-content {
-    padding: 14px 10px 32px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
-
-
-  .topbar {
-    padding: 0 10px;
-  }
-
-
-  .topbar-title {
-    font-size: 14px;
-  }
-
 
   .sidebar-link {
-    padding-top: 11px;
-    padding-bottom: 11px;
+    padding-left: 7px;
+    padding-right: 7px;
   }
-
-
-  .sidebar-brand {
-    padding-bottom: 16px;
-  }
-}
-
-
-/* =========================================================
-   SIDEBAR SCRIM ANIMATION
-   ========================================================= */
-
-@keyframes sidebar-scrim-in {
-
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-
-}
-
-
-/* =========================================================
-   ACCESSIBILITY — REDUCED MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .sidebar {
-    transition: none;
-  }
-
-  .sidebar-scrim {
-    animation: none;
-  }
-
 }
