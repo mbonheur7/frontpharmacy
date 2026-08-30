@@ -1155,37 +1155,48 @@
   color: var(--ink-dim);
 }
 
+.date-filter .input {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 
 /* =========================================================
-   ACTIVITY LOG — MOBILE
+   ACTIVITY LOG — PHONE
    ========================================================= */
 
 @media (max-width: 480px) {
 
   .activity-log-filters {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
     width: 100%;
   }
 
   .activity-log-filters > .input {
-    grid-column: 1 / -1;
     width: 100%;
     max-width: none !important;
-    min-width: 0;
+    min-width: 0 !important;
+    box-sizing: border-box;
   }
 
   .date-filter {
     width: 100%;
-    max-width: none;
-    min-width: 0;
-  }
-
-  .date-filter .input {
-    width: 100%;
-    max-width: none !important;
+    max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
   }
+
+  .date-filter .input {
+    display: block;
+    width: 100%;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+  }
+
 }
