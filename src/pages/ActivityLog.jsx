@@ -34,7 +34,7 @@ export default function ActivityLog() {
 
       <div className="activity-log-filters">
 
-        {/* Action search */}
+        {/* Action filter */}
         <div className="activity-log-action-filter">
           <input
             className="input"
@@ -46,31 +46,53 @@ export default function ActivityLog() {
 
 
         {/* Start date */}
-        <label className="date-filter">
-          <span>Start date</span>
+        <div className="date-filter">
+          <label htmlFor="activity-start-date">
+            Start date
+          </label>
 
-          <input
-            className="input"
-            type="date"
-            value={start}
-            onChange={(e) => setStart(e.target.value)}
-            aria-label="Start date"
-          />
-        </label>
+          <div className="date-input-wrap">
+            {!start && (
+              <span className="date-placeholder">
+                Start date
+              </span>
+            )}
+
+            <input
+              id="activity-start-date"
+              className="input"
+              type="date"
+              value={start}
+              onChange={(e) => setStart(e.target.value)}
+              aria-label="Start date"
+            />
+          </div>
+        </div>
 
 
         {/* End date */}
-        <label className="date-filter">
-          <span>End date</span>
+        <div className="date-filter">
+          <label htmlFor="activity-end-date">
+            End date
+          </label>
 
-          <input
-            className="input"
-            type="date"
-            value={end}
-            onChange={(e) => setEnd(e.target.value)}
-            aria-label="End date"
-          />
-        </label>
+          <div className="date-input-wrap">
+            {!end && (
+              <span className="date-placeholder">
+                End date
+              </span>
+            )}
+
+            <input
+              id="activity-end-date"
+              className="input"
+              type="date"
+              value={end}
+              onChange={(e) => setEnd(e.target.value)}
+              aria-label="End date"
+            />
+          </div>
+        </div>
 
       </div>
 
@@ -82,20 +104,13 @@ export default function ActivityLog() {
       <div className="card activity-log-card">
 
         {loading ? (
-
           <LoadingState label="Loading activity log…" />
-
         ) : error ? (
-
           <ErrorBanner error={error} />
-
         ) : logs.length === 0 ? (
-
           <EmptyState label="No matching activity found." />
-
         ) : (
-
-          <div className="table-wrap activity-log-table-wrap">
+          <div className="activity-log-table-wrap">
 
             <table className="table activity-log-table">
 
@@ -109,22 +124,20 @@ export default function ActivityLog() {
               </thead>
 
               <tbody>
+                {logs.map((l) => (
+                  <tr key={l.id}>
 
-                {logs.map((log) => (
-
-                  <tr key={log.id}>
-
-                    <td className="activity-log-date">
-                      {formatDateTime(log.occurred_at)}
+                    <td style={{ whiteSpace: "nowrap" }}>
+                      {formatDateTime(l.occurred_at)}
                     </td>
 
-                    <td className="activity-log-user">
-                      {log.user_name || "-"}
+                    <td>
+                      {l.user_name || "-"}
                     </td>
 
-                    <td className="activity-log-action">
+                    <td>
                       <span className="badge badge-neutral">
-                        {log.action}
+                        {l.action}
                       </span>
                     </td>
 
@@ -132,19 +145,16 @@ export default function ActivityLog() {
                       className="activity-log-details"
                       style={{ color: "var(--ink-dim)" }}
                     >
-                      {log.details || "-"}
+                      {l.details || "-"}
                     </td>
 
                   </tr>
-
                 ))}
-
               </tbody>
 
             </table>
 
           </div>
-
         )}
 
       </div>
