@@ -643,3 +643,195 @@
     max-width: 240px;
   }
 }
+
+/* =========================================================
+   STOCK MANAGEMENT
+   ========================================================= */
+
+.stock-page {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   MEDICINE LIST
+   ========================================================= */
+
+.stock-medicine-list {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stock-medicine-scroll {
+  max-height: 560px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.stock-medicine-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--line);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.stock-medicine-item:hover {
+  background: var(--blue-50);
+}
+
+.stock-medicine-item.selected {
+  background: var(--blue-50);
+}
+
+
+/* =========================================================
+   SELECTED MEDICINE
+   ========================================================= */
+
+.stock-details {
+  min-width: 0;
+  width: 100%;
+}
+
+.stock-selected-card {
+  min-width: 0;
+}
+
+.stock-selected-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.stock-selected-title {
+  min-width: 0;
+}
+
+.stock-adjust-btn {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   STOCK STATS
+   ========================================================= */
+
+.stock-stats {
+  display: flex;
+  gap: 28px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.stock-stat {
+  min-width: 90px;
+}
+
+
+/* =========================================================
+   MOVEMENT HISTORY
+   ========================================================= */
+
+.stock-history-card {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stock-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.stock-table-wrap .table {
+  min-width: 720px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 880px) {
+
+  .stock-page {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .stock-medicine-scroll {
+    max-height: 300px;
+  }
+
+  .stock-details {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .stock-selected-header {
+    gap: 12px;
+  }
+
+}
+
+
+/* =========================================================
+   PHONE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .stock-page {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stock-medicine-scroll {
+    max-height: 280px;
+  }
+
+  .stock-selected-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stock-adjust-btn {
+    width: 100%;
+  }
+
+  .stock-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .stock-stat {
+    min-width: 0;
+  }
+
+  .stock-stat > div:last-child {
+    font-size: 18px !important;
+  }
+
+  .stock-history-card {
+    width: 100%;
+  }
+
+  .stock-table-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+  }
+
+}
