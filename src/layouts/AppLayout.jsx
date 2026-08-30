@@ -16,7 +16,7 @@ const TITLES = {
 };
 
 export default function AppLayout() {
-  const [navOpen, setNavOpen] = useState(true);
+  const [navOpen, setNavOpen] = useState(() => window.innerWidth > 880);
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("vi-pharmacy-theme") === "dark";
   });

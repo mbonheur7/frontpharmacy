@@ -1,3 +1,19 @@
+/* =========================================================
+   VI-PHARMACY — APPLICATION LAYOUT
+   Desktop + Tablet + Mobile Responsive Layout
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   APP SHELL
+   ========================================================= */
+
 .app-shell {
   display: flex;
   height: 100vh;
@@ -5,217 +21,355 @@
   overflow: hidden;
 }
 
-/* ---------- Sidebar ---------- */
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
 
 .sidebar {
   width: var(--sidebar-width);
   height: 100vh;
   flex-shrink: 0;
+
   background: var(--blue-900);
+
   display: flex;
   flex-direction: column;
+
   padding: 18px 12px;
+
   overflow-y: auto;
   overflow-x: hidden;
+
+  transition:
+    width 0.2s ease,
+    transform 0.22s ease;
 }
+
+
+/* =========================================================
+   DESKTOP COLLAPSED SIDEBAR
+   ========================================================= */
 
 .sidebar-collapsed .sidebar {
   width: var(--sidebar-collapsed-width);
 }
 
+
+/* =========================================================
+   SIDEBAR BRAND
+   ========================================================= */
+
 .sidebar-brand {
   display: flex;
   align-items: center;
+
   gap: 10px;
+
   padding: 4px 10px 18px;
+
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
   margin-bottom: 14px;
+
   min-width: 208px;
 }
+
 
 .sidebar-logo {
   width: 40px;
   height: 40px;
+
   border-radius: 9px;
+
   overflow: hidden;
+
   background: #fff;
+
   flex-shrink: 0;
 }
+
 
 .sidebar-logo img {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
   object-position: center;
 }
 
+
 .sidebar-brand-text {
   font-weight: 700;
   font-size: 15px;
+
   color: #fff;
+
   line-height: 1.2;
+
   white-space: nowrap;
 }
 
+
 .sidebar-brand-tagline {
   font-size: 10px;
+
   color: rgba(255, 255, 255, 0.55);
+
   font-weight: 500;
+
   white-space: nowrap;
 }
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
 
 .sidebar-nav {
   display: flex;
   flex-direction: column;
+
   gap: 2px;
+
   flex: 1;
 }
+
 
 .sidebar-link {
   display: flex;
   align-items: center;
+
   gap: 10px;
+
   padding: 10px 12px;
+
   border-radius: var(--radius-sm);
+
   font-size: 13.5px;
   font-weight: 500;
+
   color: rgba(255, 255, 255, 0.72);
+
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+
   white-space: nowrap;
+
+  text-decoration: none;
 }
 
-/* ---------- Sidebar icons ---------- */
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.07);
+
+  color: #fff;
+
+  text-decoration: none;
+}
+
+
+.sidebar-link.active {
+  background: var(--blue-700);
+
+  color: #fff;
+}
+
+
+/* =========================================================
+   SIDEBAR ICONS
+   ========================================================= */
 
 .sidebar-icon {
   flex-shrink: 0;
+
   opacity: 0.78;
-  transition: opacity 0.12s ease, transform 0.12s ease;
+
+  transition:
+    opacity 0.12s ease,
+    transform 0.12s ease;
 }
+
 
 .sidebar-link:hover .sidebar-icon,
 .sidebar-link.active .sidebar-icon {
   opacity: 1;
 }
 
+
 .sidebar-link:hover .sidebar-icon {
   transform: translateX(1px);
 }
 
 
-/* ---------- Sidebar user ---------- */
+/* =========================================================
+   SIDEBAR SECTION LABEL
+   ========================================================= */
+
+.sidebar-section-label {
+  font-size: 10.5px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.05em;
+
+  color: rgba(255, 255, 255, 0.35);
+
+  padding: 14px 12px 6px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   SIDEBAR USER
+   ========================================================= */
 
 .sidebar-user {
   display: flex;
   align-items: center;
+
   gap: 10px;
+
+  padding: 4px 12px 10px;
+
+  font-size: 12px;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  white-space: nowrap;
 }
+
 
 .sidebar-user-icon {
   width: 32px;
   height: 32px;
+
   flex-shrink: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   border-radius: 50%;
+
   background: rgba(255, 255, 255, 0.08);
+
   color: rgba(255, 255, 255, 0.72);
 }
+
 
 .sidebar-user-details {
   min-width: 0;
 }
 
+
 .sidebar-user-details strong {
+  display: block;
+
+  color: #fff;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
   overflow: hidden;
+
   text-overflow: ellipsis;
+
   white-space: nowrap;
 }
 
+
 .sidebar-user-details span {
   display: block;
+
   margin-top: 2px;
+
   font-size: 11px;
+
   color: rgba(255, 255, 255, 0.5);
 }
 
 
-/* ---------- Logout ---------- */
-
-.sidebar-logout {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border: 0;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: rgba(255, 255, 255, 0.68);
-  font: inherit;
-  font-size: 13.5px;
-  font-weight: 500;
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.12s ease, color 0.12s ease;
-}
-
-.sidebar-logout:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: #fff;
-}
-
-.sidebar-link:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: #fff;
-  text-decoration: none;
-}
-
-.sidebar-link.active {
-  background: var(--blue-700);
-  color: #fff;
-}
-
-.sidebar-section-label {
-  font-size: 10.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.35);
-  padding: 14px 12px 6px;
-  white-space: nowrap;
-}
+/* =========================================================
+   SIDEBAR FOOTER
+   ========================================================= */
 
 .sidebar-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+
   padding-top: 12px;
+
   margin-top: 8px;
 }
 
-.sidebar-user {
-  padding: 4px 12px 10px;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.55);
-  white-space: nowrap;
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.sidebar-logout {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px 12px;
+
+  border: 0;
+
+  border-radius: var(--radius-sm);
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  font: inherit;
+
+  font-size: 13.5px;
+
+  font-weight: 500;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
 }
 
-.sidebar-user strong {
-  display: block;
+
+.sidebar-logout:hover {
+  background: rgba(255, 255, 255, 0.07);
+
   color: #fff;
-  font-size: 13px;
-  font-weight: 600;
 }
 
-/* ---------- Collapsed desktop sidebar ---------- */
+
+/* =========================================================
+   COLLAPSED DESKTOP SIDEBAR
+   ========================================================= */
 
 @media (min-width: 881px) {
+
   .sidebar-collapsed .sidebar-brand {
     min-width: 48px;
+
     justify-content: center;
+
     padding-left: 0;
     padding-right: 0;
   }
+
 
   .sidebar-collapsed .sidebar-brand-text,
   .sidebar-collapsed .sidebar-brand-tagline,
@@ -224,144 +378,492 @@
     display: none;
   }
 
+
   .sidebar-collapsed .sidebar-brand {
     border-bottom-color: transparent;
   }
 
+
   .sidebar-collapsed .sidebar-link {
     justify-content: center;
+
     padding-left: 8px;
     padding-right: 8px;
+
     font-size: 0;
   }
 
-  .sidebar-collapsed .sidebar-link::first-letter {
-    font-size: 0;
-  }
 
   .sidebar-collapsed .sidebar-footer {
     border-top-color: transparent;
   }
 
-  .sidebar-collapsed .sidebar-footer .sidebar-link {
-    font-size: 0;
-  }
 }
 
-/* ---------- Top bar ---------- */
+
+/* =========================================================
+   SIDEBAR SCRIM
+   ========================================================= */
+
+.sidebar-scrim {
+  display: none;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
 
 .topbar {
   height: var(--topbar-height);
+
   display: flex;
   align-items: center;
+
   gap: 12px;
+
   padding: 0 22px;
+
   background: var(--paper-alt);
+
   border-bottom: 1px solid var(--line);
+
   flex-shrink: 0;
 }
 
+
 .topbar-title {
   font-size: 16px;
+
   font-weight: 700;
 }
+
 
 .topbar-spacer {
   flex: 1;
 }
 
+
 .topbar-menu-btn {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
 }
 
+
 .menu-icon {
   font-size: 18px;
+
   line-height: 1;
 }
 
-/* ---------- Theme button ---------- */
+
+/* =========================================================
+   THEME BUTTON
+   ========================================================= */
 
 .theme-toggle {
   display: inline-flex;
+
   align-items: center;
+
   gap: 7px;
+
   border: 1px solid var(--line);
+
   background: var(--paper);
+
   color: var(--ink-dim);
+
   border-radius: 999px;
+
   padding: 6px 11px;
+
   cursor: pointer;
+
   font-size: 12px;
-  transition: background 0.15s ease, border-color 0.15s ease;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
+
 
 .theme-toggle:hover {
   background: var(--blue-50);
+
   border-color: var(--line-strong);
 }
+
 
 .theme-toggle > span:first-child {
   font-size: 15px;
 }
 
-/* ---------- Main ---------- */
+
+/* =========================================================
+   MAIN APPLICATION AREA
+   ========================================================= */
 
 .app-main {
   flex: 1;
+
   min-width: 0;
+
   height: 100vh;
+
   display: flex;
   flex-direction: column;
+
   overflow: hidden;
 }
 
+
+/* =========================================================
+   PAGE CONTENT
+   ========================================================= */
+
 .app-content {
   flex: 1;
+
   min-height: 0;
+
   overflow-y: auto;
+
   overflow-x: hidden;
+
   padding: 22px 26px 48px;
 }
 
-/* ---------- Responsive ---------- */
+
+/* =========================================================
+   TABLE SAFETY
+   ========================================================= */
+
+/*
+   Wide tables should be allowed to scroll horizontally
+   instead of breaking the entire page.
+
+   This works together with table containers/components.
+*/
+
+.table-wrapper,
+.table-scroll,
+.data-table-wrapper {
+  width: 100%;
+
+  max-width: 100%;
+
+  overflow-x: auto;
+
+  overflow-y: hidden;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET / MOBILE
+   ========================================================= */
+
+/* =========================================================
+   RESPONSIVE — TABLET / MOBILE
+   ========================================================= */
 
 @media (max-width: 880px) {
+
+  /* -------------------------------------------------------
+     Mobile sidebar
+     ------------------------------------------------------- */
+
   .sidebar {
     position: fixed;
+
     top: 0;
     bottom: 0;
     left: 0;
+
+    /*
+      IMPORTANT:
+      border-box makes the width include padding.
+      This prevents the sidebar becoming wider than expected.
+    */
+    box-sizing: border-box;
+
+    width: 245px;
+    max-width: 82vw;
+
+    height: 100dvh;
+
     z-index: 60;
+
     transform: translateX(-100%);
+
+    transition: transform 0.22s ease;
+
     box-shadow: var(--shadow-lg);
+
+    padding: 18px 10px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
+
+  /* Sidebar visible */
   .sidebar.open {
     transform: translateX(0);
   }
 
-  .sidebar-scrim {
-    position: fixed;
-    inset: 0;
-    background: rgba(10, 20, 35, 0.45);
-    z-index: 50;
+
+  /* -------------------------------------------------------
+     Keep sidebar content inside the mobile sidebar
+     ------------------------------------------------------- */
+
+  .sidebar-brand {
+    min-width: 0;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding-left: 6px;
+    padding-right: 6px;
   }
+
+
+  .sidebar-link {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  .sidebar-section-label {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  .sidebar-user {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  .sidebar-logout {
+    box-sizing: border-box;
+
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  /* -------------------------------------------------------
+     Mobile sidebar overlay
+     ------------------------------------------------------- */
+
+  .sidebar-scrim {
+    display: block;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(10, 20, 35, 0.48);
+
+    z-index: 50;
+
+    animation: sidebar-scrim-in 0.18s ease;
+  }
+
+
+  /* -------------------------------------------------------
+     Main application
+     ------------------------------------------------------- */
+
+  .app-main {
+    width: 100%;
+    min-width: 0;
+  }
+
+
+  /* -------------------------------------------------------
+     Page content
+     ------------------------------------------------------- */
+
+  .app-content {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 16px 14px 40px;
+
+    overflow-x: hidden;
+  }
+
+
+  /* -------------------------------------------------------
+     Top bar
+     ------------------------------------------------------- */
+
+  .topbar {
+    height: 58px;
+
+    min-height: 58px;
+
+    padding: 0 14px;
+
+    gap: 10px;
+  }
+
+
+  .topbar-title {
+    font-size: 15px;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
 
   .topbar-menu-btn {
     display: inline-flex;
+
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
   }
 
-  .app-content {
-    padding: 16px 16px 40px;
-  }
+
+  /* -------------------------------------------------------
+     Forms
+     ------------------------------------------------------- */
 
   .form-grid {
     grid-template-columns: 1fr;
   }
 
+
+  /* -------------------------------------------------------
+     Theme button
+     ------------------------------------------------------- */
+
   .theme-toggle-text {
     display: none;
   }
+
+
+  .theme-toggle {
+    padding: 7px 9px;
+
+    flex-shrink: 0;
+  }
+
+
+  /* -------------------------------------------------------
+     Tables
+     ------------------------------------------------------- */
+
+  table {
+    min-width: max-content;
+  }
+
+
+  .table-wrapper,
+  .table-scroll,
+  .data-table-wrapper {
+    width: 100%;
+
+    max-width: 100%;
+
+    overflow-x: auto;
+
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .sidebar {
+    width: 235px;
+
+    max-width: 82vw;
+  }
+
+
+  .app-content {
+    padding: 14px 10px 32px;
+  }
+
+
+  .topbar {
+    padding: 0 10px;
+  }
+
+
+  .topbar-title {
+    font-size: 14px;
+  }
+
+
+  .sidebar-link {
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+
+
+  .sidebar-brand {
+    padding-bottom: 16px;
+  }
+}
+
+
+/* =========================================================
+   SIDEBAR SCRIM ANIMATION
+   ========================================================= */
+
+@keyframes sidebar-scrim-in {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY — REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .sidebar {
+    transition: none;
+  }
+
+  .sidebar-scrim {
+    animation: none;
+  }
+
 }
