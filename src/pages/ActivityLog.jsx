@@ -17,17 +17,43 @@ export default function ActivityLog() {
 
   return (
     <div>
-      <div className="toolbar">
-        <input
-          className="input"
-          style={{ maxWidth: 220 }}
-          placeholder="Filter by action (e.g. login)"
-          value={action}
-          onChange={(e) => setAction(e.target.value)}
-        />
-        <input className="input" style={{ maxWidth: 170 }} type="date" value={start} onChange={(e) => setStart(e.target.value)} />
-        <input className="input" style={{ maxWidth: 170 }} type="date" value={end} onChange={(e) => setEnd(e.target.value)} />
-      </div>
+      <div className="toolbar activity-log-filters">
+
+  <input
+    className="input"
+    style={{ maxWidth: 220 }}
+    placeholder="Filter by action (e.g. login)"
+    value={action}
+    onChange={(e) => setAction(e.target.value)}
+  />
+
+  <label className="date-filter">
+    <span>Start date</span>
+    <input
+      className="input"
+      type="date"
+      value={start}
+      onChange={(e) =>
+        setStart(e.target.value)
+      }
+      aria-label="Start date"
+    />
+  </label>
+
+  <label className="date-filter">
+    <span>End date</span>
+    <input
+      className="input"
+      type="date"
+      value={end}
+      onChange={(e) =>
+        setEnd(e.target.value)
+      }
+      aria-label="End date"
+    />
+  </label>
+
+</div>
 
       <div className="card">
         {loading ? (
