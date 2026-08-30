@@ -16,7 +16,7 @@ export default function ActivityLog() {
   const logs = data?.activity_logs || [];
 
   return (
-    <div>
+    <div className="activity-log-page">
       <div className="toolbar activity-log-filters">
 
   <input
