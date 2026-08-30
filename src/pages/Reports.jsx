@@ -136,24 +136,36 @@ function SalesTab() {
       </div>
 
       {period === "range" && (
-        <div style={{ display: "flex", gap: 10, alignItems: "flex-end", marginBottom: 16 }}>
-          <div className="field" style={{ marginBottom: 0 }}>
-            <label>Start date</label>
-            <input className="input" type="date" value={start} onChange={(e) => setStart(e.target.value)} />
-          </div>
-          <div className="field" style={{ marginBottom: 0 }}>
-            <label>End date</label>
-            <input className="input" type="date" value={end} onChange={(e) => setEnd(e.target.value)} />
-          </div>
-          <button
-            className="btn btn-primary"
-            disabled={!start || !end}
-            onClick={() => setRangeRequested(true)}
-          >
-            Run report
-          </button>
-        </div>
-      )}
+  <div className="sales-report-range">
+    <div className="sales-report-date-field">
+      <label>Start date</label>
+      <input
+        className="input"
+        type="date"
+        value={start}
+        onChange={(e) => setStart(e.target.value)}
+      />
+    </div>
+
+    <div className="sales-report-date-field">
+      <label>End date</label>
+      <input
+        className="input"
+        type="date"
+        value={end}
+        onChange={(e) => setEnd(e.target.value)}
+      />
+    </div>
+
+    <button
+      className="btn btn-primary sales-report-run"
+      disabled={!start || !end}
+      onClick={() => setRangeRequested(true)}
+    >
+      Run report
+    </button>
+  </div>
+)}
 
       {period === "range" && !rangeRequested ? (
         <EmptyState label="Choose a start and end date, then run the report." />

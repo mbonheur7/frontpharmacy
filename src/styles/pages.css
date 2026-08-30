@@ -1428,3 +1428,73 @@
   }
 
 }
+
+/* =========================================================
+   REPORTS — CUSTOM SALES RANGE
+   ========================================================= */
+
+.sales-report-range {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 16px;
+  min-width: 0;
+}
+
+.sales-report-date-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 170px;
+  min-width: 0;
+}
+
+.sales-report-date-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-dim);
+}
+
+.sales-report-date-field .input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.sales-report-run {
+  flex-shrink: 0;
+}
+
+
+/* ---------- Phone ---------- */
+
+@media (max-width: 480px) {
+
+  .sales-report-range {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 11px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sales-report-date-field {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sales-report-date-field .input {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .sales-report-run {
+    width: 100%;
+    max-width: 100%;
+  }
+
+}
