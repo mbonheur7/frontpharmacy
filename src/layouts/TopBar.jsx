@@ -1,4 +1,13 @@
 import React from "react";
+import {
+  Menu,
+  MessageCircle,
+  Sun,
+  Moon,
+} from "lucide-react";
+
+import { useChat } from "../context/ChatContext";
+
 
 export default function TopBar({
   title,
@@ -6,12 +15,23 @@ export default function TopBar({
   darkMode,
   onThemeToggle,
 }) {
+
+  const {
+    totalUnread,
+    toggleChat,
+    isOpen,
+  } = useChat();
+
+
   return (
     <header className="topbar">
+
+      {/* ================= MENU ================= */}
+
       <button
         className="btn btn-ghost btn-sm topbar-menu-btn"
         onClick={onMenuClick}
-        aria-label={navOpenLabel(darkMode)}
+        aria-label="Toggle navigation"
         title="Toggle navigation"
       >
         <span className="menu-icon" aria-hidden="true">
@@ -19,25 +39,75 @@ export default function TopBar({
         </span>
       </button>
 
-      <div className="topbar-title">{title}</div>
+
+      {/* ================= TITLE ================= */}
+
+      <div className="topbar-title">
+        {title}
+      </div>
+
 
       <div className="topbar-spacer" />
+
+
+      {/* ================= CHAT ================= */}
+
+      <button
+        className={
+          "chat-toggle" +
+          (isOpen ? " active" : "")
+        }
+        onClick={toggleChat}
+        aria-label="Open team chat"
+        title="Team chat"
+      >
+
+        <MessageCircle size={20} />
+
+
+        {totalUnread > 0 && (
+          <span className="chat-notification-badge">
+
+            {totalUnread > 99
+              ? "99+"
+              : totalUnread}
+
+          </span>
+        )}
+
+      </button>
+
+
+      {/* ================= THEME ================= */}
 
       <button
         className="theme-toggle"
         onClick={onThemeToggle}
-        aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-        title={darkMode ? "Light mode" : "Dark mode"}
+        aria-label={
+          darkMode
+            ? "Switch to light mode"
+            : "Switch to dark mode"
+        }
+        title={
+          darkMode
+            ? "Light mode"
+            : "Dark mode"
+        }
       >
-        <span aria-hidden="true">{darkMode ? "☀" : "☾"}</span>
+
+        {darkMode
+          ? <Sun size={16} />
+          : <Moon size={16} />
+        }
+
         <span className="theme-toggle-text">
-          {darkMode ? "Light" : "Dark"}
+          {darkMode
+            ? "Light"
+            : "Dark"}
         </span>
+
       </button>
+
     </header>
   );
-}
-
-function navOpenLabel(darkMode) {
-  return darkMode ? "Toggle navigation" : "Toggle navigation";
 }

@@ -1215,26 +1215,6 @@
 }
 
 
-/* Fake date placeholder */
-
-.date-placeholder {
-  position: absolute;
-
-  left: 12px;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  color: var(--ink-faint);
-
-  font-size: 13.5px;
-
-  pointer-events: none;
-
-  z-index: 2;
-}
-
-
 /* =========================================================
    TABLE
    ========================================================= */
@@ -1396,14 +1376,6 @@
     box-sizing: border-box !important;
   }
 
-
-  .date-placeholder {
-    left: 12px;
-
-    font-size: 13px;
-  }
-
-
   .activity-log-card {
     width: 100%;
     max-width: 100%;
@@ -1497,4 +1469,314 @@
     max-width: 100%;
   }
 
+}
+
+.dashboard-card-action {
+  margin-top: 10px;
+  padding: 6px 10px;
+
+  border: 1px solid var(--green-600);
+  border-radius: 7px;
+
+  background: transparent;
+  color: var(--green-700);
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.dashboard-card-action:hover {
+  background: var(--green-600);
+  color: white;
+}
+/* =============================================================
+   REVENUE BREAKDOWN
+============================================================= */
+
+.revenue-breakdown-row {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    16px;
+
+  margin-top:
+    8px;
+
+  font-size:
+    13px;
+
+}
+
+
+.revenue-breakdown-row span {
+
+  color:
+    var(--ink-dim);
+
+}
+
+
+.revenue-breakdown-row strong {
+
+  font-weight:
+    600;
+
+}
+
+
+.revenue-breakdown-row.expense strong {
+
+  color:
+    var(--danger);
+
+}
+
+
+.revenue-breakdown-line {
+
+  width:
+    100%;
+
+  height:
+    1px;
+
+  background:
+    var(--line);
+
+  margin:
+    10px 0;
+
+}
+
+
+.revenue-breakdown-row.revenue-net {
+
+  font-size:
+    15px;
+
+}
+
+
+.revenue-breakdown-row.revenue-net strong {
+
+  font-weight:
+    700;
+
+}
+
+
+.revenue-breakdown-row.revenue-net strong:last-child {
+
+  color:
+    var(--green-700);
+
+}
+/* ============================================================
+   REVENUE DASHBOARD CARD — COMPACT VERSION
+============================================================ */
+
+.revenue-dashboard-card {
+    position: relative;
+    overflow: hidden;
+
+    /*
+       Match the normal dashboard KPI card height.
+       This prevents the revenue card from stretching
+       the entire first row.
+    */
+    height: 126px;
+    min-height: 126px;
+
+    box-sizing: border-box;
+}
+
+
+/* ------------------------------------------------------------
+   TOP LEFT TITLE
+------------------------------------------------------------ */
+
+.revenue-card-title {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    height: 32px;
+    width: 190px;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 18px;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    color: var(--green-500);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(34, 197, 94, 0.12),
+            rgba(34, 197, 94, 0.04),
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* ------------------------------------------------------------
+   REVENUE ICON
+------------------------------------------------------------ */
+
+.revenue-card-icon {
+    position: absolute;
+
+    top: 38px;
+    left: 20px;
+}
+
+
+/* ------------------------------------------------------------
+   REVENUE CONTENT
+------------------------------------------------------------ */
+
+.revenue-card-content {
+    position: absolute;
+
+    top: 35px;
+    left: 70px;
+    right: 18px;
+    bottom: 55px;
+
+    width: auto;
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* ------------------------------------------------------------
+   REVENUE ROWS
+------------------------------------------------------------ */
+.revenue-breakdown-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    width: 100%;
+
+    font-size: 12px;
+    line-height: 1.2;
+
+    margin: 0 0 5px 0;
+}
+
+.revenue-breakdown-row span {
+    color: var(--ink-muted);
+}
+
+.revenue-breakdown-row strong {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------
+   EXPENSE
+------------------------------------------------------------ */
+
+.revenue-breakdown-row.expense strong {
+    color: var(--danger);
+}
+
+
+/* ------------------------------------------------------------
+   DIVIDER
+------------------------------------------------------------ */
+
+.revenue-breakdown-line {
+    width: 100%;
+    height: 1px;
+
+    margin: 5px 0;
+
+    background: var(--line);
+}
+
+/* ------------------------------------------------------------
+   NET REVENUE
+------------------------------------------------------------ */
+
+.revenue-breakdown-row.revenue-net {
+    margin: 0;
+
+    font-size: 13px;
+}
+
+.revenue-breakdown-row.revenue-net strong {
+    font-weight: 700;
+}
+
+.revenue-breakdown-row.revenue-net strong:last-child {
+    color: var(--green-500);
+}
+
+
+/* ------------------------------------------------------------
+   TRANSACTION COUNT
+------------------------------------------------------------ */
+
+.revenue-transactions {
+    position: absolute;
+
+    left: 22px;
+    bottom: 11px;
+
+    font-size: 11px;
+
+    color: var(--ink-muted);
+
+    line-height: 1;
+}
+
+
+/* ------------------------------------------------------------
+   EXPENSE BUTTON
+------------------------------------------------------------ */
+
+.revenue-expense-button {
+    position: absolute;
+
+    right: 7px;
+    bottom: 1px;
+
+    margin: 0;
+
+    padding: 6px 11px;
+
+    font-size: 11px;
+    line-height: 1.1;
+
+    z-index: 2;
 }

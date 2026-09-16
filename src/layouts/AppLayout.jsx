@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+
 import Sidebar from "./Sidebar";
 import TopBar from "./TopBar";
+import ChatPanel from "../components/ChatPanel";
 
 const TITLES = {
   "/dashboard": "Dashboard",
@@ -17,11 +19,13 @@ const TITLES = {
 
 export default function AppLayout() {
   const [navOpen, setNavOpen] = useState(() => window.innerWidth > 880);
+
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("vi-pharmacy-theme") === "dark";
   });
 
   const location = useLocation();
+
   const title = TITLES[location.pathname] || "VI-PHARMACY";
 
   useEffect(() => {
@@ -30,28 +34,34 @@ export default function AppLayout() {
       darkMode ? "dark" : "light"
     );
 
-    document.documentElement.dataset.theme = darkMode ? "dark" : "light";
+    document.documentElement.dataset.theme = darkMode
+      ? "dark"
+      : "light";
   }, [darkMode]);
 
   return (
-    <div className={`app-shell${navOpen ? "" : " sidebar-collapsed"}`}>
-      <Sidebar
-        open={navOpen}
-        onNavigate={() => setNavOpen(false)}
-      />
-
-      <div className="app-main">
-        <TopBar
-          title={title}
-          onMenuClick={() => setNavOpen((open) => !open)}
-          darkMode={darkMode}
-          onThemeToggle={() => setDarkMode((dark) => !dark)}
+    <>
+      <div className={`app-shell${navOpen ? "" : " sidebar-collapsed"}`}>
+        <Sidebar
+          open={navOpen}
+          onNavigate={() => setNavOpen(false)}
         />
 
-        <div className="app-content">
-          <Outlet />
+        <div className="app-main">
+          <TopBar
+            title={title}
+            onMenuClick={() => setNavOpen((open) => !open)}
+            darkMode={darkMode}
+            onThemeToggle={() => setDarkMode((dark) => !dark)}
+          />
+
+          <div className="app-content">
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+
+      <ChatPanel />
+    </>
   );
 }

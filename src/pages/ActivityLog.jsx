@@ -1,98 +1,227 @@
-import React, { useState } from "react";
-import { activityLogsApi } from "../api/activityLogs";
-import { useFetch } from "../hooks/useFetch";
+import React, {
+  useState,
+} from "react";
+
+import {
+  activityLogsApi,
+} from "../api/activityLogs";
+
+import {
+  useFetch,
+} from "../hooks/useFetch";
+
 import {
   LoadingState,
   EmptyState,
   ErrorBanner,
 } from "../components/StateViews";
-import { formatDateTime } from "../utils/formatters";
+
+import {
+  formatDateTime,
+} from "../utils/formatters";
+
+
+// =========================================================
+// ACTIVITY LOG PAGE
+// =========================================================
 
 export default function ActivityLog() {
-  const [action, setAction] = useState("");
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
 
-  const { data, loading, error } = useFetch(
-    () =>
-      activityLogsApi.list({
-        action: action || undefined,
-        start: start || undefined,
-        end: end || undefined,
-      }),
-    [action, start, end]
-  );
+  const [
+    action,
+    setAction,
+  ] =
+    useState("");
 
-  const logs = data?.activity_logs || [];
+
+  const [
+    start,
+    setStart,
+  ] =
+    useState("");
+
+
+  const [
+    end,
+    setEnd,
+  ] =
+    useState("");
+
+
+  // =======================================================
+  // FETCH ACTIVITY LOGS
+  // =======================================================
+
+  const {
+    data,
+    loading,
+    error,
+  } =
+    useFetch(
+
+      () =>
+
+        activityLogsApi.list({
+
+          action:
+            action || undefined,
+
+          start:
+            start || undefined,
+
+          end:
+            end || undefined,
+
+        }),
+
+      [
+        action,
+        start,
+        end,
+      ]
+
+    );
+
+
+  const logs =
+    data?.activity_logs ||
+    [];
+
 
   return (
-    <div className="activity-log-page">
+
+    <div
+      className="activity-log-page"
+    >
+
 
       {/* =====================================================
           FILTERS
           ===================================================== */}
 
-      <div className="activity-log-filters">
+      <div
+        className="activity-log-filters"
+      >
 
-        {/* Action filter */}
-        <div className="activity-log-action-filter">
+
+        {/* ===================================================
+            ACTION FILTER
+            =================================================== */}
+
+        <div
+          className="activity-log-action-filter"
+        >
+
           <input
+
             className="input"
+
             placeholder="Filter by action (e.g. login)"
+
             value={action}
-            onChange={(e) => setAction(e.target.value)}
+
+            onChange={(e) =>
+              setAction(
+                e.target.value
+              )
+            }
+
           />
+
         </div>
 
 
-        {/* Start date */}
-        <div className="date-filter">
-          <label htmlFor="activity-start-date">
+        {/* ===================================================
+            START DATE
+            =================================================== */}
+
+        <div
+          className="date-filter"
+        >
+
+          <label
+            htmlFor="activity-start-date"
+          >
+
             Start date
+
           </label>
 
-          <div className="date-input-wrap">
-            {!start && (
-              <span className="date-placeholder">
-                Start date
-              </span>
-            )}
+
+          <div
+            className="date-input-wrap"
+          >
 
             <input
+
               id="activity-start-date"
+
               className="input"
+
               type="date"
+
               value={start}
-              onChange={(e) => setStart(e.target.value)}
+
+              onChange={(e) =>
+                setStart(
+                  e.target.value
+                )
+              }
+
               aria-label="Start date"
+
             />
+
           </div>
+
         </div>
 
 
-        {/* End date */}
-        <div className="date-filter">
-          <label htmlFor="activity-end-date">
+        {/* ===================================================
+            END DATE
+            =================================================== */}
+
+        <div
+          className="date-filter"
+        >
+
+          <label
+            htmlFor="activity-end-date"
+          >
+
             End date
+
           </label>
 
-          <div className="date-input-wrap">
-            {!end && (
-              <span className="date-placeholder">
-                End date
-              </span>
-            )}
+
+          <div
+            className="date-input-wrap"
+          >
 
             <input
+
               id="activity-end-date"
+
               className="input"
+
               type="date"
+
               value={end}
-              onChange={(e) => setEnd(e.target.value)}
+
+              onChange={(e) =>
+                setEnd(
+                  e.target.value
+                )
+              }
+
               aria-label="End date"
+
             />
+
           </div>
+
         </div>
+
 
       </div>
 
@@ -101,64 +230,149 @@ export default function ActivityLog() {
           ACTIVITY TABLE
           ===================================================== */}
 
-      <div className="card activity-log-card">
+      <div
+        className="card activity-log-card"
+      >
+
 
         {loading ? (
-          <LoadingState label="Loading activity log…" />
-        ) : error ? (
-          <ErrorBanner error={error} />
-        ) : logs.length === 0 ? (
-          <EmptyState label="No matching activity found." />
-        ) : (
-          <div className="activity-log-table-wrap">
 
-            <table className="table activity-log-table">
+          <LoadingState
+            label="Loading activity log…"
+          />
+
+        ) : error ? (
+
+          <ErrorBanner
+            error={error}
+          />
+
+        ) : logs.length === 0 ? (
+
+          <EmptyState
+            label="No matching activity found."
+          />
+
+        ) : (
+
+          <div
+            className="activity-log-table-wrap"
+          >
+
+
+            <table
+              className="table activity-log-table"
+            >
+
 
               <thead>
+
                 <tr>
-                  <th>Date/time</th>
-                  <th>User</th>
-                  <th>Action</th>
-                  <th>Details</th>
+
+                  <th>
+                    Date/time
+                  </th>
+
+                  <th>
+                    User
+                  </th>
+
+                  <th>
+                    Action
+                  </th>
+
+                  <th>
+                    Details
+                  </th>
+
                 </tr>
+
               </thead>
 
+
               <tbody>
-                {logs.map((l) => (
-                  <tr key={l.id}>
 
-                    <td style={{ whiteSpace: "nowrap" }}>
-                      {formatDateTime(l.occurred_at)}
-                    </td>
+                {logs.map(
+                  (l) => (
 
-                    <td>
-                      {l.user_name || "-"}
-                    </td>
-
-                    <td>
-                      <span className="badge badge-neutral">
-                        {l.action}
-                      </span>
-                    </td>
-
-                    <td
-                      className="activity-log-details"
-                      style={{ color: "var(--ink-dim)" }}
+                    <tr
+                      key={l.id}
                     >
-                      {l.details || "-"}
-                    </td>
 
-                  </tr>
-                ))}
+
+                      <td
+                        style={{
+                          whiteSpace:
+                            "nowrap",
+                        }}
+                      >
+
+                        {formatDateTime(
+                          l.occurred_at
+                        )}
+
+                      </td>
+
+
+                      <td>
+
+                        {l.user_name ||
+                          "-"}
+
+                      </td>
+
+
+                      <td>
+
+                        <span
+                          className="badge badge-neutral"
+                        >
+
+                          {l.action}
+
+                        </span>
+
+                      </td>
+
+
+                      <td
+
+                        className="activity-log-details"
+
+                        style={{
+                          color:
+                            "var(--ink-dim)",
+                        }}
+
+                      >
+
+                        {l.details ||
+                          "-"}
+
+                      </td>
+
+
+                    </tr>
+
+                  )
+                )}
+
               </tbody>
+
 
             </table>
 
+
           </div>
+
         )}
+
 
       </div>
 
+
     </div>
+
   );
+
 }

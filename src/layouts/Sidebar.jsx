@@ -1,5 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+
+import {
+  NavLink,
+} from "react-router-dom";
+
 import {
   LayoutDashboard,
   Pill,
@@ -14,238 +18,453 @@ import {
 } from "lucide-react";
 
 import logo from "../assets/logo/vi-pharmacy-logo.jpeg";
-import { useAuth } from "../context/AuthContext";
 
+import {
+  useAuth,
+} from "../context/AuthContext";
+
+
+// =========================================================
+// NORMAL NAVIGATION
+// =========================================================
 
 const NAV_ITEMS = [
+
   {
     to: "/dashboard",
     label: "Dashboard",
     icon: LayoutDashboard,
   },
+
   {
     to: "/medicines",
     label: "Medicines",
     icon: Pill,
   },
+
   {
     to: "/stock",
     label: "Stock",
     icon: Package,
   },
+
   {
     to: "/sales",
     label: "Sales",
     icon: ShoppingCart,
   },
+
   {
     to: "/alerts",
     label: "Alerts",
     icon: Bell,
   },
+
   {
     to: "/reports",
     label: "Reports",
     icon: BarChart3,
   },
+
   {
     to: "/profile",
     label: "Profile",
     icon: UserCircle,
   },
+
 ];
 
 
+// =========================================================
+// ADMINISTRATION NAVIGATION
+// =========================================================
+
 const ADMIN_NAV_ITEMS = [
+
   {
     to: "/users",
     label: "Users",
     icon: Users,
   },
+
   {
     to: "/activity-log",
     label: "Activity Log",
     icon: ClipboardList,
   },
+
 ];
 
 
-export default function Sidebar({ open, onNavigate }) {
-  const { user, isAdmin, logout } = useAuth();
+// =========================================================
+// SIDEBAR COMPONENT
+// =========================================================
 
-  const linkClass = ({ isActive }) =>
-    "sidebar-link" + (isActive ? " active" : "");
+export default function Sidebar({
 
+  open,
+
+  onNavigate,
+
+}) {
+
+  const {
+
+    user,
+
+    canViewAdminControls,
+
+    logout,
+
+  } = useAuth();
+
+
+  // =======================================================
+  // NAV LINK CLASS
+  // =======================================================
+
+  const linkClass =
+    ({ isActive }) =>
+
+      "sidebar-link" +
+      (
+        isActive
+          ? " active"
+          : ""
+      );
+
+
+  // =======================================================
+  // RENDER
+  // =======================================================
 
   return (
+
     <>
+
+
+      {/* ===================================================
+          MOBILE OVERLAY
+          =================================================== */}
+
       {open && (
+
         <div
           className="sidebar-scrim"
           onClick={onNavigate}
         />
+
       )}
 
 
+      {/* ===================================================
+          SIDEBAR
+          =================================================== */}
+
       <aside
-        className={"sidebar" + (open ? " open" : "")}
+        className={
+          "sidebar" +
+          (
+            open
+              ? " open"
+              : ""
+          )
+        }
       >
 
-        {/* ---------------------------------------------------
-            Brand
-        --------------------------------------------------- */}
 
-        <div className="sidebar-brand">
+        {/* =================================================
+            BRAND
+            ================================================= */}
 
-          <div className="sidebar-logo">
+        <div
+          className="sidebar-brand"
+        >
+
+
+          <div
+            className="sidebar-logo"
+          >
+
             <img
               src={logo}
               alt="VI-PHARMACY logo"
             />
+
           </div>
+
 
           <div>
-            <div className="sidebar-brand-text">
+
+
+            <div
+              className="sidebar-brand-text"
+            >
+
               VI-PHARMACY
+
             </div>
 
-            <div className="sidebar-brand-tagline">
+
+            <div
+              className="sidebar-brand-tagline"
+            >
+
               Your Health, Our Priority
+
             </div>
+
+
           </div>
+
 
         </div>
 
 
-        {/* ---------------------------------------------------
-            Main navigation
-        --------------------------------------------------- */}
+        {/* =================================================
+            NAVIGATION
+            ================================================= */}
 
-        <nav className="sidebar-nav">
+        <nav
+          className="sidebar-nav"
+        >
 
-          {NAV_ITEMS.map((item) => {
 
-            const Icon = item.icon;
+          {/* ===============================================
+              NORMAL NAVIGATION
+              =============================================== */}
 
-            return (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={linkClass}
-                onClick={onNavigate}
+          {NAV_ITEMS.map(
+
+            (item) => {
+
+              const Icon =
+                item.icon;
+
+
+              return (
+
+                <NavLink
+
+                  key={item.to}
+
+                  to={item.to}
+
+                  className={linkClass}
+
+                  onClick={onNavigate}
+
+                >
+
+
+                  <Icon
+
+                    className="sidebar-icon"
+
+                    size={18}
+
+                    strokeWidth={1.9}
+
+                    aria-hidden="true"
+
+                  />
+
+
+                  <span>
+
+                    {item.label}
+
+                  </span>
+
+
+                </NavLink>
+
+              );
+
+            }
+
+          )}
+
+
+          {/* ===============================================
+              ADMINISTRATION
+
+              BOTH:
+
+              Super Admin
+              Admin Viewer
+
+              can SEE these links.
+              =============================================== */}
+
+          {canViewAdminControls && (
+
+            <>
+
+
+              <div
+                className="sidebar-section-label"
               >
 
-                <Icon
-                  className="sidebar-icon"
-                  size={18}
-                  strokeWidth={1.9}
-                  aria-hidden="true"
-                />
-
-                <span>
-                  {item.label}
-                </span>
-
-              </NavLink>
-            );
-
-          })}
-
-
-          {/* -------------------------------------------------
-              Admin navigation
-          ------------------------------------------------- */}
-
-          {isAdmin && (
-            <>
-              <div className="sidebar-section-label">
                 Administration
+
               </div>
 
-              {ADMIN_NAV_ITEMS.map((item) => {
 
-                const Icon = item.icon;
+              {ADMIN_NAV_ITEMS.map(
 
-                return (
-                  <NavLink
-                    key={item.to}
-                    to={item.to}
-                    className={linkClass}
-                    onClick={onNavigate}
-                  >
+                (item) => {
 
-                    <Icon
-                      className="sidebar-icon"
-                      size={18}
-                      strokeWidth={1.9}
-                      aria-hidden="true"
-                    />
+                  const Icon =
+                    item.icon;
 
-                    <span>
-                      {item.label}
-                    </span>
 
-                  </NavLink>
-                );
+                  return (
 
-              })}
+                    <NavLink
+
+                      key={item.to}
+
+                      to={item.to}
+
+                      className={linkClass}
+
+                      onClick={onNavigate}
+
+                    >
+
+
+                      <Icon
+
+                        className="sidebar-icon"
+
+                        size={18}
+
+                        strokeWidth={1.9}
+
+                        aria-hidden="true"
+
+                      />
+
+
+                      <span>
+
+                        {item.label}
+
+                      </span>
+
+
+                    </NavLink>
+
+                  );
+
+                }
+
+              )}
+
+
             </>
+
           )}
+
 
         </nav>
 
 
-        {/* ---------------------------------------------------
-            User / logout
-        --------------------------------------------------- */}
+        {/* =================================================
+            USER FOOTER
+            ================================================= */}
 
-        <div className="sidebar-footer">
+        <div
+          className="sidebar-footer"
+        >
 
-          <div className="sidebar-user">
 
-            <div className="sidebar-user-icon">
+          <div
+            className="sidebar-user"
+          >
+
+
+            <div
+              className="sidebar-user-icon"
+            >
+
               <UserCircle
+
                 size={18}
+
                 strokeWidth={1.8}
+
               />
+
             </div>
 
-            <div className="sidebar-user-details">
+
+            <div
+              className="sidebar-user-details"
+            >
+
 
               <strong>
+
                 {user?.fullname}
+
               </strong>
 
+
               <span>
+
                 {user?.role}
+
               </span>
 
+
             </div>
+
 
           </div>
 
 
           <button
+
             className="sidebar-logout"
+
             onClick={logout}
+
             type="button"
+
           >
 
+
             <LogOut
+
               size={17}
+
               strokeWidth={1.9}
+
               aria-hidden="true"
+
             />
 
+
             <span>
+
               Log out
+
             </span>
+
 
           </button>
 
+
         </div>
 
+
       </aside>
+
+
     </>
+
   );
+
 }

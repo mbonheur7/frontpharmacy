@@ -1,7 +1,19 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+
 import { AuthProvider } from "./context/AuthContext";
-import { ProtectedRoute, AdminRoute } from "./routes/Guards";
+import { ChatProvider } from "./context/ChatContext";
+
+import {
+  ProtectedRoute,
+  AdminRoute,
+} from "./routes/Guards";
+
 import AppLayout from "./layouts/AppLayout";
 
 import Login from "./pages/Login";
@@ -16,36 +28,114 @@ import ActivityLog from "./pages/ActivityLog";
 import Profile from "./pages/Profile";
 import Forbidden from "./pages/Forbidden";
 import NotFound from "./pages/NotFound";
+import Expenses from "./pages/Expenses";
+
 
 export default function App() {
   return (
     <BrowserRouter>
+
       <AuthProvider>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/forbidden" element={<Forbidden />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route element={<AppLayout />}>
-              <Route index element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/medicines" element={<Medicines />} />
-              <Route path="/stock" element={<Stock />} />
-              <Route path="/sales" element={<Sales />} />
-              <Route path="/alerts" element={<Alerts />} />
-              <Route path="/reports" element={<Reports />} />
-              <Route path="/profile" element={<Profile />} />
+        <ChatProvider>
 
-              <Route element={<AdminRoute />}>
-                <Route path="/users" element={<Users />} />
-                <Route path="/activity-log" element={<ActivityLog />} />
+          <Routes>
+
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+
+            <Route
+              path="/forbidden"
+              element={<Forbidden />}
+            />
+
+
+            <Route element={<ProtectedRoute />}>
+
+              <Route element={<AppLayout />}>
+
+                <Route
+                  index
+                  element={
+                    <Navigate
+                      to="/dashboard"
+                      replace
+                    />
+                  }
+                />
+
+                <Route
+                  path="/dashboard"
+                  element={<Dashboard />}
+                />
+
+                <Route
+                  path="/medicines"
+                  element={<Medicines />}
+                />
+
+                <Route
+                  path="/stock"
+                  element={<Stock />}
+                />
+
+                <Route
+                  path="/sales"
+                  element={<Sales />}
+                />
+
+                <Route
+                  path="/alerts"
+                  element={<Alerts />}
+                />
+
+                <Route
+                  path="/reports"
+                  element={<Reports />}
+                />
+                <Route
+                  path="/expenses"
+                  element={<Expenses />}
+                />
+
+                <Route
+                  path="/profile"
+                  element={<Profile />}
+                />
+
+
+                <Route element={<AdminRoute />}>
+
+                  <Route
+                    path="/users"
+                    element={<Users />}
+                  />
+
+                  <Route
+                    path="/activity-log"
+                    element={<ActivityLog />}
+                  />
+
+                </Route>
+
               </Route>
-            </Route>
-          </Route>
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            </Route>
+
+
+            <Route
+              path="*"
+              element={<NotFound />}
+            />
+
+          </Routes>
+
+        </ChatProvider>
+
       </AuthProvider>
+
     </BrowserRouter>
   );
 }
