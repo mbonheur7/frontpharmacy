@@ -39,6 +39,62 @@ export default function ChatPanel() {
   const [messageText, setMessageText] =
     useState("");
 
+      // Keep the mobile chat panel attached to the visible
+  // viewport when the on-screen keyboard opens.
+  useEffect(() => {
+    const viewport = window.visualViewport;
+
+    if (!viewport) {
+      return;
+    }
+
+    const updateChatViewport = () => {
+      document.documentElement.style.setProperty(
+        "--chat-visual-height",
+        `${viewport.height}px`
+      );
+
+      document.documentElement.style.setProperty(
+        "--chat-visual-top",
+        `${viewport.offsetTop}px`
+      );
+    };
+
+    updateChatViewport();
+
+    viewport.addEventListener(
+      "resize",
+      updateChatViewport
+    );
+
+    viewport.addEventListener(
+      "scroll",
+      updateChatViewport
+    );
+
+    window.addEventListener(
+      "resize",
+      updateChatViewport
+    );
+
+    return () => {
+      viewport.removeEventListener(
+        "resize",
+        updateChatViewport
+      );
+
+      viewport.removeEventListener(
+        "scroll",
+        updateChatViewport
+      );
+
+      window.removeEventListener(
+        "resize",
+        updateChatViewport
+      );
+    };
+  }, []);
+
 
   const messagesEndRef =
     useRef(null);
@@ -597,6 +653,14 @@ export default function ChatPanel() {
                     event.target.value
                   )
                 }
+                onFocus={() => {
+                  requestAnimationFrame(() => {
+                    messagesEndRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "nearest",
+                    });
+                  });
+                }}
                 placeholder={
                   activeGroup
                     ? "Type a message..."

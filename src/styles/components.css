@@ -1092,13 +1092,16 @@ textarea.input {
     right: 8px;
     left: 8px;
 
-    bottom: 8px;
+    top: var(--chat-visual-top, 8px);
+    bottom: auto;
 
     width: auto;
 
     height: min(
       680px,
-      calc(100vh - 72px)
+      calc(
+        var(--chat-visual-height, 100vh) - 16px
+      )
     );
   }
 
@@ -1212,9 +1215,12 @@ textarea.input {
     right: 4px;
     left: 4px;
 
-    bottom: 4px;
+    top: var(--chat-visual-top, 4px);
+    bottom: auto;
 
-    height: calc(100vh - 56px);
+    height: calc(
+      var(--chat-visual-height, 100vh) - 8px
+    );
 
     border-radius: var(--radius-md);
   }
